@@ -1,0 +1,4 @@
+trpc-python
+fastapi
+uvicorn
+annotated_types

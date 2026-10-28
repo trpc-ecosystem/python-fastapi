@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRPC FastAPI HTTP Methods API</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .api-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        .endpoints-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .endpoints-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .endpoints-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #e8f5e8;
+            border-radius: 5px;
+            border-left: 3px solid #27ae60;
+        }
+        .endpoints-list a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .endpoints-list a:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+        .version-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .version-details {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TRPC FastAPI HTTP Methods API</h1>
+
+        <div class="version-info">
+            <h2>API 信息</h2>
+            <p><strong>TRPC FastAPI 版本:</strong> {{ trpc_fastapi_version }}</p>
+            <p><strong>FastAPI 版本:</strong> {{ fastapi_version }}</p>
+            <p><strong>描述:</strong> 这是一个使用 FastAPI 提供静态文件的示例，集成了 TRPC 框架。</p>
+        </div>
+
+        <div class="version-details">
+            <h2>版本详情</h2>
+            <p><strong>TRPC FastAPI 插件版本:</strong> <code>{{ trpc_fastapi_version }}</code></p>
+            <p><strong>FastAPI 版本:</strong> <code>{{ fastapi_version }}</code></p>
+            <p><strong>当前时间:</strong> <span id="current-time">加载中...</span></p>
+        </div>
+
+        <div class="api-info">
+            <h2>API 端点信息</h2>
+            <p>以下是可用的 API 端点：</p>
+        </div>
+
+        <div class="endpoints-list">
+            <h2>可用端点：</h2>
+            <ul>
+                {% for name, path in endpoints.items() %}
+                <li><a href="{{ path }}">{{ name }}</a> - {{ path }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="features">
+            <h2>支持的功能：</h2>
+            <ul>
+                <li>HTML 页面</li>
+                <li>CSS 样式</li>
+                <li>JavaScript 脚本</li>
+                <li>图片文件</li>
+                <li>字体文件</li>
+                <li>其他静态资源</li>
+                <li>TRPC 集成</li>
+                <li>FastAPI 路由</li>
+                <li>动态版本显示</li>
+            </ul>
+        </div>
+
+        <div class="demo">
+            <h2>演示区域：</h2>
+            <button onclick="showAlert()">点击我</button>
+            <div id="result"></div>
+        </div>
+
+        <div class="links">
+            <h2>相关链接：</h2>
+            <ul>
+                <li><a href="/docs">API 文档</a></li>
+                <li><a href="/static/html/page1.html">静态页面 1</a></li>
+                <li><a href="/static/html/page2.html">静态页面 2</a></li>
+                <li><a href="/template_page">模板页面</a></li>
+                <li><a href="/download_file">下载文件</a></li>
+                <li><a href="/health">健康检查</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
+    <script>
+        // Update the current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const timeElement = document.getElementById('current-time');
+            if (timeElement) {
+                timeElement.textContent = timeString;
+            }
+        }
+
+        // Show version info when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TRPC FastAPI 版本:', '{{ trpc_fastapi_version }}');
+            console.log('FastAPI 版本:', '{{ fastapi_version }}');
+
+            // Update the current time
+            updateCurrentTime();
+
+            // Refresh the time every second
+            setInterval(updateCurrentTime, 1000);
+
+            // Show version info in the result area
+            const result = document.getElementById('result');
+            if (result) {
+                result.innerHTML = `
+                    <div style="color: #27ae60; font-weight: bold; margin-top: 10px;">
+                        ✅ 页面加载完成！<br>
+                        TRPC FastAPI 版本: {{ trpc_fastapi_version }}<br>
+                        FastAPI 版本: {{ fastapi_version }}
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

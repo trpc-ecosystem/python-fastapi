@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=64.0", "wheel", "hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "trpc_fastapi/version.py"
+
+[project]
+name = "trpc-fastapi"
+dynamic = ["version"]
+description = "The plugin for trpc about fastapi"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "Apache-2.0"}
+authors = [{name = "tRPC Group"}]
+keywords = ["trpc", "fastapi", "microservice"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "trpc-python ; sys_platform != 'win32'",
+    "fastapi",
+    "uvicorn",
+    "annotated_types",
+]
+
+[project.optional-dependencies]
+static = [
+    "jinja2",
+]
+dev = [
+    "setuptools",
+    "fastapi",
+    "uvicorn",
+    "annotated_types",
+    "httpx",
+    "pytest",
+    "pytest-asyncio",
+    "black",
+    "flake8",
+    "websockets",
+    "yapf",
+]
+all = [
+    "setuptools",
+    "fastapi",
+    "annotated_types",
+    "jinja2",
+    "websockets",
+]
+
+# 使用 include 保证两个包都包含进来
+[tool.hatch.build.targets.wheel]
+packages = ["trpc_fastapi"]
+
+[project.urls]
+
+
+
+# 若需包含非代码文件（如数据、模板等）
+[tool.setuptools.package-data]
+"*" = ["*.txt", "*.md", "*.yml", "*.yaml"]
+
+# 可选：添加工具配置
+[tool.black]
+line-length = 120
+target-version = ['py310']
+exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | venv
+  | env
+  | node_modules
+)/
+'''
+
+[tool.yapf]
+based_on_style = "pep8"
+column_limit = 120
+indent_width = 4
+split_before_logical_operator = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests"]

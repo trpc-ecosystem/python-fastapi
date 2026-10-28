@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态页面 1 - FastAPI 示例</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .page-content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .back-link:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← 返回首页</a>
+        
+        <h1>静态页面 1</h1>
+        <p>这是一个完全静态的 HTML 页面，由 FastAPI 的静态文件服务提供。</p>
+        
+        <div class="page-content">
+            <h2>FastAPI 静态文件特性</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📁 文件类型支持</h3>
+                    <p>支持 HTML、CSS、JavaScript、图片、字体等各种静态文件类型。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🚀 高性能</h3>
+                    <p>使用高效的静态文件服务，支持缓存和压缩。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔧 易于配置</h3>
+                    <p>简单的配置即可启用静态文件服务。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 响应式设计</h3>
+                    <p>支持移动端和桌面端的响应式设计。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo">
+            <h2>交互演示</h2>
+            <button onclick="showMessage()">点击我</button>
+            <div id="message"></div>
+        </div>
+        
+        <div class="links">
+            <h2>相关链接</h2>
+            <ul>
+                <li><a href="/static/html/page2.html">静态页面 2</a></li>
+                <li><a href="/template">模板页面</a></li>
+                <li><a href="/docs">API 文档</a></li>
+                <li><a href="/">返回首页</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function showMessage() {
+            const message = document.getElementById('message');
+            const messages = [
+                '这是来自静态页面的消息！',
+                'FastAPI 静态文件服务正常工作！',
+                'JavaScript 在静态页面中运行！',
+                '静态资源加载成功！'
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            message.innerHTML = `
+                <div style="color: #27ae60; font-weight: bold; margin-top: 10px;">
+                    ✅ ${randomMessage}
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
