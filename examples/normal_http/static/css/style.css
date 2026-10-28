@@ -1,0 +1,194 @@
+/* FastAPI static-file example styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #34495e;
+    margin: 20px 0 10px 0;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.features {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #3498db;
+}
+
+.features ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.features li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+    position: relative;
+    padding-left: 25px;
+}
+
+.features li:before {
+    content: "✓";
+    color: #27ae60;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.demo {
+    background: #e8f5e8;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #27ae60;
+}
+
+.demo button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.demo button:hover {
+    background: #2980b9;
+}
+
+.demo button:active {
+    transform: translateY(1px);
+}
+
+#result {
+    margin-top: 15px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.links {
+    background: #fff3cd;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #ffc107;
+}
+
+.links ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.links li {
+    margin: 10px 0;
+}
+
+.links a {
+    color: #856404;
+    text-decoration: none;
+    padding: 8px 16px;
+    background: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all 0.3s;
+    border: 1px solid #ffeaa7;
+}
+
+.links a:hover {
+    background: #ffeaa7;
+    transform: translateX(5px);
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .features, .demo, .links {
+        padding: 15px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Button animation */
+.demo button {
+    position: relative;
+    overflow: hidden;
+}
+
+.demo button:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.demo button:active:before {
+    width: 300px;
+    height: 300px;
+}

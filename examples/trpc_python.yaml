@@ -1,0 +1,79 @@
+global: # Global configuration.
+  namespace: Development # Environment type: production or development.
+  env_name: test # Environment name used when namespace is not production.
+
+server: # Server configuration.
+  app: test # Application name.
+  server: Greeter # Process service name.
+  bin_path: /usr/local/trpc/bin/ # Directory of the binary and framework config.
+  conf_path: /usr/local/trpc/conf/ # Directory of business config files.
+  data_path: /usr/local/trpc/data/ # Directory of business data files.
+  close_wait_time: 2000 # Graceful shutdown drain, in milliseconds; also uvicorn's graceful shutdown timeout.
+  check_timeout: false
+  queue_wait_policy: 1
+  queue_wait_timeout: 10
+  registry_after_fork: false
+  max_rbuf_size: 16777216
+  memory_inspection:
+    enabled: true
+    filename_prefix: test
+    line_limit: -1
+  queue_cb:
+    threshold: 10
+    ratio: 0.5
+  # No global.processmodel: single process, single loop. The http_fastapi
+  # address is served by one uvicorn thread. See trpc_python_*.yaml for the
+  # other process/thread models.
+  service: # Services exposed by this process. More than one is allowed.
+    - name: trpc.trpc_python_group.helloworld.Greeter # Service route name.
+      ip: 0.0.0.0 # Listen address. ${ip} is allowed. ip wins over nic when both are set.
+      port: 8001 # Listen port. ${port} is allowed.
+      network: tcp # Transport: tcp or udp.
+      protocol: trpc # Application protocol: trpc or http.
+      timeout: 5000 # Maximum request handling time, in milliseconds.
+      disable_request_timeout: true # Ignore the timeout inherited from the caller.
+    - name: trpc.trpc_python_group.helloworld.FastApiGreeter # Service route name.
+      ip: 0.0.0.0 # Listen address. ${ip} is allowed. ip wins over nic when both are set.
+      port: 8000 # Listen port. ${port} is allowed.
+      network: tcp # Transport: tcp or udp.
+      protocol: http_fastapi # Application protocol: trpc or http.
+      timeout: 5000 # Maximum request handling time, in milliseconds.
+
+
+client: # Backends this process calls.
+  timeout: 1000 # Default maximum handling time for every backend.
+  namespace: Development # Default environment for every backend.
+  service: # Per-backend settings.
+    - name: trpc.test.helloworld.Greeter # Backend service name.
+      network: tcp # Backend transport: tcp or udp. This value wins over the default.
+      protocol: trpc # Application protocol: trpc or http.
+      timeout: 800 # Maximum request handling time.
+    - name: trpc.test.helloworld.Greeter2 # Backend service name.
+      network: tcp # Backend transport: tcp or udp. This value wins over the default.
+      protocol: trpc # Application protocol: trpc or http.
+      timeout: 1000 # Maximum request handling time.
+
+plugins: # Plugin configuration.
+  log: # Logging configuration.
+    default: # Default logger. More than one writer is allowed.
+      - writer: console # Console writer. This is the default.
+        level: info # Console log level.
+        format_config:
+          # Timestamps include milliseconds.
+          fmt: "[%(asctime)s.%(msecs)03d][%(levelname)s][%(filename)s:%(lineno)s][%(process)d][%(message)s]"
+          time_fmt: "%Y-%m-%d %H:%M:%S"
+      - writer: file # Local file writer.
+        level: info # Rolling file log level.
+        formatter: json # Log format.
+        writer_config:
+          filename: ./hello.log # Path of the rolling log file.
+          max_size: 10 # Maximum size of one log file, in MB.
+          max_backups: 10 # Maximum number of retained log files.
+          max_age: 7 # Maximum age of a retained log file, in days.
+          compress: false # Whether retained log files are compressed.
+        format_config:
+          fmt: "[%(asctime)s][%(levelname)s][%(filename)s:%(lineno)s][%(process)d][%(message)s]"
+          time_fmt: "%Y-%m-%d %H:%M:%S"
+  trpc_fastapi:
+    uvicorn:
+      timeout_keep_alive: 150

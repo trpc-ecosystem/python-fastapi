@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态页面 2 - FastAPI 示例</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .page-content {
+            background: #e8f5e8;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .back-link:hover {
+            background: #229954;
+        }
+        .highlight {
+            background: #f39c12;
+            color: #2c3e50;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← 返回首页</a>
+        
+        <h1>静态页面 2</h1>
+        <p>这是另一个静态页面，展示了 FastAPI 静态文件服务的更多功能。</p>
+        
+        <div class="page-content">
+            <h2>FastAPI 静态文件配置示例</h2>
+            <p>以下是如何在 FastAPI 中配置静态文件服务的代码示例：</p>
+            
+            <div class="code-example">
+# Import the required modules
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
+# Create the FastAPI app
+app = FastAPI()
+
+# Mount the static directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Or use a relative path
+app.mount("/assets", StaticFiles(directory="./static"), name="assets")
+            </div>
+            
+            <h3>主要特性：</h3>
+            <ul>
+                <li><span class="highlight">自动 MIME 类型检测</span> - 根据文件扩展名自动设置正确的 Content-Type</li>
+                <li><span class="highlight">缓存支持</span> - 支持 HTTP 缓存头，提高性能</li>
+                <li><span class="highlight">安全防护</span> - 防止目录遍历攻击</li>
+                <li><span class="highlight">压缩支持</span> - 支持 gzip 压缩</li>
+                <li><span class="highlight">多目录支持</span> - 可以挂载多个静态文件目录</li>
+            </ul>
+        </div>
+        
+        <div class="demo">
+            <h2>功能演示</h2>
+            <button onclick="loadData()">加载数据</button>
+            <button onclick="clearData()">清除数据</button>
+            <div id="data-display"></div>
+        </div>
+        
+        <div class="links">
+            <h2>相关链接</h2>
+            <ul>
+                <li><a href="/static/html/page1.html">静态页面 1</a></li>
+                <li><a href="/template">模板页面</a></li>
+                <li><a href="/download">下载文件</a></li>
+                <li><a href="/">返回首页</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function loadData() {
+            const display = document.getElementById('data-display');
+            const data = [
+                { name: 'FastAPI', type: 'Web Framework', language: 'Python' },
+                { name: 'Static Files', type: 'Feature', language: 'HTTP' },
+                { name: 'JavaScript', type: 'Language', language: 'Web' },
+                { name: 'CSS', type: 'Styling', language: 'Web' }
+            ];
+            
+            let html = '<h3>加载的数据：</h3><table style="width: 100%; border-collapse: collapse; margin-top: 10px;">';
+            html += '<tr style="background: #f8f9fa;"><th style="padding: 10px; border: 1px solid #ddd;">名称</th><th style="padding: 10px; border: 1px solid #ddd;">类型</th><th style="padding: 10px; border: 1px solid #ddd;">语言</th></tr>';
+            
+            data.forEach(item => {
+                html += `<tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${item.name}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${item.type}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${item.language}</td>
+                </tr>`;
+            });
+            
+            html += '</table>';
+            display.innerHTML = html;
+        }
+        
+        function clearData() {
+            document.getElementById('data-display').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
